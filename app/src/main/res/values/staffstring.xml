@@ -1,0 +1,8 @@
+<resources>
+    <string name="reservations_title" translatable="false">Reservations</string>
+    <string name="edit_action" translatable="false">Edit</string>
+    <string name="status_planned" translatable="false">Planned</string>
+    <string name="status_ongoing" translatable="false">Ongoing</string>
+    <string name="list_content_planned" translatable="false">Planned List Content</string>
+    <string name="list_content_ongoing" translatable="false">Ongoing List Content</string>
+</resources>

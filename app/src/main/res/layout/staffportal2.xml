@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/foodpic"
+    tools:context=".StaffMenuActivity">
+
+    <ImageView
+        android:id="@+id/notification_bell_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="48dp"
+        android:src="@drawable/bell"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/reservations_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="156dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="15dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="8dp"
+        android:text="Reservations"
+        android:textColor="@android:color/white"
+        android:fontFamily="cursive"
+        android:background="#80000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/order_menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="15dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="8dp"
+        android:text="Order Menu"
+        android:textColor="@android:color/white"
+        android:fontFamily="cursive"
+        android:background="#80000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="254dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/add_edit_items_button"
+        android:layout_width="196dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="15dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="8dp"
+        android:text="Add/Edit Items"
+        android:textColor="@android:color/white"
+        android:fontFamily="cursive"
+        android:background="#80000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="377dp" />
+
+    <Button
+        android:id="@+id/employee_guide_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="15dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="8dp"
+        android:text="Employee Guide"
+        android:textColor="@android:color/white"
+        android:fontFamily="cursive"
+        android:background="#80000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="504dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
