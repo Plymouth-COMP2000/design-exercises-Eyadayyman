@@ -2,20 +2,16 @@ package com.example.eyadcomp2000;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log; // For debugging
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +22,6 @@ public class StaffMenuActivity extends AppCompatActivity {
     private final String BASE_URL = "http://10.240.72.69/comp2000/coursework/";
 
     private TextView notificationBadge;
-    private FrameLayout notificationContainer;
     private Button btnReadOnlyMenu, btnAddEditMenu, btnViewComplaints;
     private Button btnViewStaff, btnDeleteStaff, btnViewGuests, btnDeleteGuest;
 
@@ -35,9 +30,8 @@ public class StaffMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.staffportal2);
 
+        // Link UI Elements
         notificationBadge = findViewById(R.id.notification_badge);
-        notificationContainer = findViewById(R.id.notification_container);
-
         btnReadOnlyMenu = findViewById(R.id.btn_read_only_menu);
         btnAddEditMenu = findViewById(R.id.add_edit_items_button);
         btnViewComplaints = findViewById(R.id.comments_button);
@@ -46,9 +40,11 @@ public class StaffMenuActivity extends AppCompatActivity {
         btnViewGuests = findViewById(R.id.btn_view_guests);
         btnDeleteGuest = findViewById(R.id.btn_delete_guest);
 
+        // Role-Based Logic
         boolean isAdmin = getIntent().getBooleanExtra("IS_ADMIN", false);
 
         if (isAdmin) {
+            // ADMIN ACCESS: Can Edit Menu and Manage Users
             btnReadOnlyMenu.setVisibility(View.GONE);
             btnAddEditMenu.setVisibility(View.VISIBLE);
             btnViewComplaints.setVisibility(View.VISIBLE);
@@ -57,6 +53,7 @@ public class StaffMenuActivity extends AppCompatActivity {
             btnViewGuests.setVisibility(View.VISIBLE);
             btnDeleteGuest.setVisibility(View.VISIBLE);
         } else {
+            // STAFF ACCESS: View-Only Menu (Like Guest)
             btnReadOnlyMenu.setVisibility(View.VISIBLE);
             btnAddEditMenu.setVisibility(View.GONE);
             btnViewComplaints.setVisibility(View.GONE);
@@ -83,141 +80,85 @@ public class StaffMenuActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * UPDATED LOGIC: Allows staff to choose between viewing Comments or Reservations.
-     */
     public void handleNotificationClick(View view) {
         if (MenuData.notificationCount > 0) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("New Updates Available");
-
-            String[] options = {
-                    "View Guest Comments (" + MenuData.customerComplaints.size() + ")",
-                    "View New Reservations (" + MenuData.reservationsList.size() + ")"
-            };
-
-            builder.setItems(options, (dialog, which) -> {
-                if (which == 0) {
-                    showComplaints(view);
-                } else {
-                    openReservationsPage(view);
-                }
+            AlertDialog.Builder b = new AlertDialog.Builder(this);
+            b.setTitle("New Alerts");
+            String[] opts = {"Guest Comments (" + MenuData.customerComplaints.size() + ")",
+                    "New Reservations (" + MenuData.reservationsList.size() + ")"};
+            b.setItems(opts, (d, w) -> {
+                if (w == 0) showComplaints(view);
+                else openReservationsPage(view);
             });
-
-            builder.setNegativeButton("Cancel", null);
-            builder.show();
+            b.show();
         } else {
-            Toast.makeText(this, "No new alerts", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No alerts", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    /**
-     * Shows complaints with "Clear All" logic.
-     */
-    public void showComplaints(View view) {
-        if (MenuData.customerComplaints.isEmpty()) {
-            showDialog("Guest Comments", "No complaints recorded.");
-            return;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (String c : MenuData.customerComplaints) {
-            sb.append("• ").append(c).append("\n\n");
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Guest Comments");
-        builder.setMessage(sb.toString());
-
-        builder.setPositiveButton("Close", (dialog, which) -> {
-            MenuData.notificationCount = 0;
-            updateNotificationBadge();
-        });
-
-        builder.setNeutralButton("Clear All", (dialog, which) -> {
-            MenuData.customerComplaints.clear();
-            MenuData.notificationCount = 0;
-            updateNotificationBadge();
-            Toast.makeText(this, "Comments cleared.", Toast.LENGTH_SHORT).show();
-        });
-
-        builder.show();
-    }
-
-    public void openReservationsPage(View view) {
-        // Count is now reset inside ReservationsActivity's onCreate or by staff interaction
-        startActivity(new Intent(this, ReservationsActivity.class));
-    }
-
-    public void openAddEditMenu(View view) {
-        startActivity(new Intent(this, MenuItemsListActivity.class));
     }
 
     public void openReadOnlyMenu(View view) {
+        // Directing to the guest's read-only view
+        startActivity(new Intent(this, RestaurantMenuActivity.class));
+    }
+
+    public void openAddEditMenu(View view) {
+        // Directing to the admin's management view
         startActivity(new Intent(this, MenuItemsListActivity.class));
     }
 
-    // --- ADMIN API TOOLS ---
-    public void viewStaffList(View view) { fetchAndDisplayUsers("staff", "Registered Staff"); }
-    public void viewGuestList(View view) { fetchAndDisplayUsers("guest", "Registered Guests"); }
-
-    public void openDeleteStaffDialog(View view) {
-        showDeleteDialog("Delete Staff", "Enter Staff ID", this::requestDeleteUser);
+    public void openReservationsPage(View view) {
+        startActivity(new Intent(this, ReservationsActivity.class));
     }
 
-    public void openDeleteGuestDialog(View view) {
-        showDeleteDialog("Delete Guest", "Enter Guest Username", this::requestDeleteUser);
+    public void showComplaints(View view) {
+        if (MenuData.customerComplaints.isEmpty()) return;
+        StringBuilder sb = new StringBuilder();
+        for (String c : MenuData.customerComplaints) sb.append("• ").append(c).append("\n\n");
+        new AlertDialog.Builder(this).setTitle("Guest Comments").setMessage(sb.toString())
+                .setPositiveButton("Close", (d, w) -> { MenuData.notificationCount = 0; updateNotificationBadge(); })
+                .setNeutralButton("Clear All", (d, w) -> {
+                    MenuData.customerComplaints.clear();
+                    MenuData.notificationCount = 0;
+                    updateNotificationBadge();
+                }).show();
     }
 
-    private void fetchAndDisplayUsers(String type, String title) {
+    public void viewStaffList(View view) { fetchUsers("staff", "Staff List"); }
+    public void viewGuestList(View view) { fetchUsers("guest", "Guest List"); }
+
+    private void fetchUsers(String type, String title) {
         String url = BASE_URL + "read_all_users/" + STUDENT_ID;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> {
-                    try {
-                        JSONArray users = response.getJSONArray("users");
-                        StringBuilder sb = new StringBuilder();
-                        for (int i = 0; i < users.length(); i++) {
-                            JSONObject u = users.getJSONObject(i);
-                            if (u.getString("usertype").equals(type)) sb.append("• ").append(u.getString("username")).append("\n\n");
-                        }
-                        showDialog(title, sb.length() > 0 ? sb.toString() : "No accounts found.");
-                    } catch (JSONException e) { e.printStackTrace(); }
-                }, null);
-        Volley.newRequestQueue(this).add(request);
-    }
-
-    private void showDeleteDialog(String title, String hint, java.util.function.Consumer<String> action) {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle(title);
-        final EditText input = new EditText(this);
-        input.setHint(hint);
-        b.setView(input);
-        b.setPositiveButton("Delete", (d, w) -> {
-            if (!input.getText().toString().isEmpty()) action.accept(input.getText().toString().trim());
-        });
-        b.setNegativeButton("Cancel", null);
-        b.show();
-    }
-
-    private void requestDeleteUser(String username) {
-        String url = BASE_URL + "delete_user/" + STUDENT_ID + "/" + username;
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.DELETE, url, null,
-                r -> Toast.makeText(this, "Deleted " + username, Toast.LENGTH_SHORT).show(), null);
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null, res -> {
+            try {
+                JSONArray arr = res.getJSONArray("users");
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject u = arr.getJSONObject(i);
+                    if (u.getString("usertype").equals(type)) sb.append("• ").append(u.getString("username")).append("\n");
+                }
+                new AlertDialog.Builder(this).setTitle(title).setMessage(sb.toString()).setPositiveButton("OK", null).show();
+            } catch (JSONException e) { e.printStackTrace(); }
+        }, null);
         Volley.newRequestQueue(this).add(req);
     }
 
+    public void openDeleteStaffDialog(View view) { deleteUserDialog("Enter Staff Username"); }
+    public void openDeleteGuestDialog(View view) { deleteUserDialog("Enter Guest Username"); }
+
+    private void deleteUserDialog(String hint) {
+        final EditText input = new EditText(this);
+        input.setHint(hint);
+        new AlertDialog.Builder(this).setTitle("Delete User").setView(input)
+                .setPositiveButton("Delete", (d, w) -> {
+                    String user = input.getText().toString();
+                    String url = BASE_URL + "delete_user/" + STUDENT_ID + "/" + user;
+                    JsonObjectRequest req = new JsonObjectRequest(Request.Method.DELETE, url, null,
+                            r -> Toast.makeText(this, "Deleted: " + user, Toast.LENGTH_SHORT).show(), null);
+                    Volley.newRequestQueue(this).add(req);
+                }).setNegativeButton("Cancel", null).show();
+    }
+
     public void showEmployeeGuide(View view) {
-        showDialog("Employee Guide", "1. Arrive on time.\n2. Wash hands.\n3. Be professional.");
-    }
-
-    private void showDialog(String title, String msg) {
-        new AlertDialog.Builder(this).setTitle(title).setMessage(msg).setPositiveButton("Close", null).show();
-    }
-
-    public void logoutStaff(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
+        new AlertDialog.Builder(this).setTitle("Employee Guide").setMessage("1. Professionalism\n2. Safety first").setPositiveButton("OK", null).show();
     }
 }
