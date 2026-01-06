@@ -4,15 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/foodpic"
+    android:background="#808080"
     tools:context=".ReservationsActivity">
+
+    <Button
+        android:id="@+id/back_button_reservations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="272dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="#80000000"
+        android:fontFamily="cursive"
+        android:onClick="goBackToMenu"
+        android:text="Back"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/reservations_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="cursive"
         android:text="Reservations"
         android:textColor="@android:color/white"
@@ -20,30 +36,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/edit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="36dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="Edit"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/planned_button"
-        android:layout_width="171dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="167dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:text="Planned"
-        android:fontFamily="cursive"
         android:background="#80000000"
+        android:fontFamily="cursive"
+        android:text="Planned"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -54,13 +55,13 @@
 
     <Button
         android:id="@+id/ongoing_button"
-        android:layout_width="166dp"
-        android:layout_height="85dp"
+        android:layout_width="168dp"
+        android:layout_height="45dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
-        android:text="Ongoing"
-        android:fontFamily="cursive"
+        android:layout_marginTop="20dp"
         android:background="#80000000"
+        android:fontFamily="cursive"
+        android:text="Ongoing"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -81,16 +82,18 @@
         app:layout_constraintEnd_toStartOf="@id/ongoing_reservations_container"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="445dp"
-            android:layout_gravity="center"
-            android:alpha="0.3"
-            android:background="#434141"
-            android:text="Planned List Content"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:background="#2B2B2B" />
 
+        <ListView
+            android:id="@+id/planned_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/white"
+            android:dividerHeight="1dp" />
     </FrameLayout>
 
     <FrameLayout
@@ -104,21 +107,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/planned_reservations_container"
-        app:layout_constraintTop_toBottomOf="@id/ongoing_button"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@id/ongoing_button">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:background="#2B2B2B" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="448dp"
-            android:layout_gravity="center"
-            android:alpha="0.3"
-            android:background="#434141"
-            android:text="Ongoing List Content"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-
+        <ListView
+            android:id="@+id/ongoing_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/white"
+            android:dividerHeight="1dp" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/foodpic"
+    tools:context=".guestactivity">
+
+    <TextView
+        android:id="@+id/restaurant_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:text="@string/restaurants"
+        android:textColor="@android:color/white"
+        android:textSize="45sp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <Button
+        android:id="@+id/menu_button"
+        android:layout_width="289dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#80000000"
+        android:fontFamily="cursive"
+        android:onClick="openRestaurantMenu"
+        android:text="@string/menue"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/restaurant_title" />
+
+    <Button
+        android:id="@+id/book_table_button"
+        android:layout_width="290dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="#80000000"
+        android:fontFamily="cursive"
+        android:onClick="openBookingPage"
+        android:text="@string/book_a_table"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_button" />
+
+    <Button
+        android:id="@+id/change_reservation_button"
+        android:layout_width="292dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#80000000"
+        android:fontFamily="cursive"
+        android:onClick="openReservationPage"
+        android:text="@string/change_nreservation"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_table_button" />
+
+    <Button
+        android:id="@+id/customer_comments_button"
+        android:layout_width="308dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#80000000"
+        android:fontFamily="cursive"
+        android:onClick="openCommentPopup"
+        android:text="@string/customer_ncomments"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_reservation_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

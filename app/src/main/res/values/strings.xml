@@ -2,5 +2,34 @@
     <string name="app_name" translatable="false">eyadcomp2000</string>
 
     <string name="restaurant" translatable="false">Restaurant</string>
+    <string name="staff">Staff</string>
+    <string name="todo">TODO</string>
+    <string name="guest">GUEST</string>
+    <string name="staff_portal">STAFF PORTAL</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="back">Back</string>
+    <string name="bck" />
+    <string name="customer_ncomments">Customer\nComments</string>
+    <string name="change_nreservation">Change\nReservation</string>
+    <string name="book_a_table">Book a Table</string>
+    <string name="menue">Menue</string>
+    <string name="notifications">Notifications</string>
+    <string name="restaurants">Restaurant</string>
+    <string name="cancel_reservation">Cancel Reservation</string>
+    <string name="save_reservation">Save_Reservation</string>
+    <string name="confirm">Confirm</string>
+    <string name="reservations">Reservations</string>
+    <string name="order_menu">Order Menu</string>
+    <string name="add_edit_items">Add/Edit Items</string>
+    <string name="employee_guide">Employee Guide</string>
+    <string name="todo1">TODO</string>
+    <string name="leave_a_review">Leave a Review</string>
+    <string name="type_your_comments_here">Type your comments here...</string>
+    <string name="we_value_your_feedback">We value your feedback!</string>
+    <string name="reservation">Reservations</string>
+    <string name="planned">Planned</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="view_complaints">View Complaints</string>
 
 </resources>

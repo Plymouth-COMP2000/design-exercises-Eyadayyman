@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#E0000000"> <TextView
+    android:id="@+id/dialog_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/leave_a_review"
+    android:textColor="@android:color/white"
+    android:textSize="28sp"
+    android:fontFamily="cursive"
+    android:textStyle="bold"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="20dp"/>
+
+
+    <EditText
+        android:id="@+id/edit_comment_input"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:autofillHints=""
+        android:background="#F2F2F2"
+        android:gravity="top"
+        android:hint="@string/type_your_comments_here"
+        android:padding="12dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/we_value_your_feedback"
+        android:textColor="#BBBBBB"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:fontFamily="cursive" />
+
+</LinearLayout>

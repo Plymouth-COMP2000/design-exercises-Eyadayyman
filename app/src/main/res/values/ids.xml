@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="menu_button" type="id" />
+    <item name="back_button_reservations" type="id" />
+    <item name="reservations_title" type="id" />
+    <item name="planned_button" type="id" />
+    <item name="ongoing_button" type="id" />
+    <item name="planned_reservations_container" type="id" />
+    <item name="ongoing_reservations_container" type="id" />
+    <item name="staff_reservations_list" type="id" />
+</resources>

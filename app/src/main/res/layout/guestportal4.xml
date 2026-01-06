@@ -45,39 +45,76 @@
         </LinearLayout>
     </FrameLayout>
 
-    <Button
-        android:id="@+id/btn_change_date"
-        android:layout_width="376dp"
-        android:layout_height="67dp"
+    <EditText
+        android:id="@+id/edit_reservation_date"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="30dp"
         android:background="#80000000"
         android:fontFamily="cursive"
-        android:text="Change Date"
+        android:hint="Change Date (DD/MM/YYYY)"
+        android:inputType="date"
+        android:paddingStart="25dp"
         android:textColor="@android:color/white"
-        android:textSize="22sp"
-        tools:layout_editor_absoluteX="14dp"
-        tools:layout_editor_absoluteY="203dp" />
+        android:textColorHint="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reservation_change_text_view" />
+
+    <EditText
+        android:id="@+id/edit_reservation_time"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="30dp"
+        android:background="#80000000"
+        android:fontFamily="cursive"
+        android:hint="Change Time"
+        android:inputType="time"
+        android:paddingStart="25dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_reservation_date" />
 
     <Button
-        android:id="@+id/btn_change_time"
-        android:layout_width="378dp"
-        android:layout_height="71dp"
-        android:background="#80000000"
+        android:id="@+id/btn_save_changes"
+        android:layout_width="349dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="60dp"
+        android:backgroundTint="#80000000"
         android:fontFamily="cursive"
-        android:text="Change Time"
+        android:text="Save New Details"
         android:textColor="@android:color/white"
-        android:textSize="22sp"
-        tools:layout_editor_absoluteX="14dp"
-        tools:layout_editor_absoluteY="319dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_reservation_time" />
 
     <Button
-        android:id="@+id/btn_cancel_reservation"
-        android:layout_width="376dp"
-        android:layout_height="70dp"
-        android:background="#80000000"
+        android:id="@+id/btn_cancel_reservation_final"
+        android:layout_width="307dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="60dp"
+        android:backgroundTint="#80000000"
         android:fontFamily="cursive"
+        android:onClick="cancelReservation"
         android:text="Cancel Reservation"
         android:textColor="@android:color/white"
-        android:textSize="22sp"
-        tools:layout_editor_absoluteX="14dp"
-        tools:layout_editor_absoluteY="443dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_save_changes" />
 </androidx.constraintlayout.widget.ConstraintLayout>
