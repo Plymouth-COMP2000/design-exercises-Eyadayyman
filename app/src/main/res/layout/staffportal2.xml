@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://tools.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/foodpic"
@@ -11,8 +11,8 @@
         android:id="@+id/notification_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:onClick="handleNotificationClick"
         android:clickable="true"
         android:focusable="true"
@@ -21,19 +21,19 @@
 
         <ImageView
             android:id="@+id/notification_bell_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:src="@drawable/bell" />
 
         <TextView
             android:id="@+id/notification_badge"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_gravity="top|end"
             android:background="@android:color/holo_red_dark"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:textStyle="bold"
             android:visibility="gone"
             tools:visibility="visible"
@@ -41,9 +41,9 @@
     </FrameLayout>
 
     <ScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,121 +58,121 @@
 
             <Button
                 android:id="@+id/reservations_button"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="#80000000"
                 android:fontFamily="cursive"
                 android:onClick="openReservationsPage"
                 android:text="Reservations"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/employee_guide_button"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
-                android:backgroundTint="#80000000"
-                android:fontFamily="cursive"
-                android:onClick="showEmployeeGuide"
-                android:text="Employee Guide"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btn_read_only_menu"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
-                android:backgroundTint="#80000000"
-                android:fontFamily="cursive"
-                android:onClick="openReadOnlyMenu"
-                android:text="View Restaurant Menu"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/add_edit_items_button"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="#80000000"
                 android:fontFamily="cursive"
                 android:onClick="openAddEditMenu"
                 android:text="Manage Menu Items"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/comments_button"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="#80000000"
                 android:fontFamily="cursive"
                 android:onClick="showComplaints"
                 android:text="View Guest Comments"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_view_staff"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="#80000000"
                 android:fontFamily="cursive"
                 android:onClick="viewStaffList"
                 android:text="View Staff List"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_delete_staff"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="#80000000"
                 android:fontFamily="cursive"
                 android:onClick="openDeleteStaffDialog"
                 android:text="Delete Staff"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_view_guests"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="#80000000"
                 android:fontFamily="cursive"
                 android:onClick="viewGuestList"
                 android:text="View Guest List"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_delete_guest"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="#80000000"
                 android:fontFamily="cursive"
                 android:onClick="openDeleteGuestDialog"
                 android:text="Delete Guest"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:visibility="gone" />
+
+            <Button
+                android:id="@+id/employee_guide_button"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="#80000000"
+                android:fontFamily="cursive"
+                android:onClick="showEmployeeGuide"
+                android:text="Employee Guide"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_read_only_menu"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="#80000000"
+                android:fontFamily="cursive"
+                android:onClick="openReadOnlyMenu"
+                android:text="View Restaurant Menu"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
