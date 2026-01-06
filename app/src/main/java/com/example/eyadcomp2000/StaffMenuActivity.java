@@ -35,14 +35,12 @@ public class StaffMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.staffportal2);
 
-        // Link Notification UI
         notificationBadge = findViewById(R.id.notification_badge);
         notificationContainer = findViewById(R.id.notification_container);
 
-        // Link Management Buttons - Matched to XML IDs
         btnReadOnlyMenu = findViewById(R.id.btn_read_only_menu);
         btnAddEditMenu = findViewById(R.id.add_edit_items_button);
-        btnViewComplaints = findViewById(R.id.comments_button); // XML says comments_button
+        btnViewComplaints = findViewById(R.id.comments_button);
         btnViewStaff = findViewById(R.id.btn_view_staff);
         btnDeleteStaff = findViewById(R.id.btn_delete_staff);
         btnViewGuests = findViewById(R.id.btn_view_guests);
@@ -50,7 +48,6 @@ public class StaffMenuActivity extends AppCompatActivity {
 
         boolean isAdmin = getIntent().getBooleanExtra("IS_ADMIN", false);
 
-        // Admin Visibility Logic
         if (isAdmin) {
             btnReadOnlyMenu.setVisibility(View.GONE);
             btnAddEditMenu.setVisibility(View.VISIBLE);
@@ -73,11 +70,9 @@ public class StaffMenuActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Force UI refresh whenever returning to this screen
         updateNotificationBadge();
     }
 
-    // --- NOTIFICATION BADGE CONTROL ---
     private void updateNotificationBadge() {
         int count = MenuData.notificationCount;
         if (count > 0) {
@@ -89,24 +84,35 @@ public class StaffMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Handles clicking the bell icon.
-     * Prioritizes showing complaints, then reservations.
+     * UPDATED LOGIC: Allows staff to choose between viewing Comments or Reservations.
      */
     public void handleNotificationClick(View view) {
-        if (!MenuData.customerComplaints.isEmpty()) {
-            showComplaints(view);
-        } else if (MenuData.notificationCount > 0) {
-            // If count exists but complaints list is empty, it's a reservation
-            openReservationsPage(view);
+        if (MenuData.notificationCount > 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("New Updates Available");
+
+            String[] options = {
+                    "View Guest Comments (" + MenuData.customerComplaints.size() + ")",
+                    "View New Reservations (" + MenuData.reservationsList.size() + ")"
+            };
+
+            builder.setItems(options, (dialog, which) -> {
+                if (which == 0) {
+                    showComplaints(view);
+                } else {
+                    openReservationsPage(view);
+                }
+            });
+
+            builder.setNegativeButton("Cancel", null);
+            builder.show();
         } else {
             Toast.makeText(this, "No new alerts", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // --- BUTTON CLICK METHODS ---
-
     /**
-     * Shows complaints with a Clear All option to manage the static list.
+     * Shows complaints with "Clear All" logic.
      */
     public void showComplaints(View view) {
         if (MenuData.customerComplaints.isEmpty()) {
@@ -124,12 +130,10 @@ public class StaffMenuActivity extends AppCompatActivity {
         builder.setMessage(sb.toString());
 
         builder.setPositiveButton("Close", (dialog, which) -> {
-            // Reset count as the user has viewed the alerts
             MenuData.notificationCount = 0;
             updateNotificationBadge();
         });
 
-        // Clears the static list and resets the badge
         builder.setNeutralButton("Clear All", (dialog, which) -> {
             MenuData.customerComplaints.clear();
             MenuData.notificationCount = 0;
@@ -141,9 +145,7 @@ public class StaffMenuActivity extends AppCompatActivity {
     }
 
     public void openReservationsPage(View view) {
-        // Reset count when entering reservations activity
-        MenuData.notificationCount = 0;
-        updateNotificationBadge();
+        // Count is now reset inside ReservationsActivity's onCreate or by staff interaction
         startActivity(new Intent(this, ReservationsActivity.class));
     }
 
@@ -204,7 +206,6 @@ public class StaffMenuActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(req);
     }
 
-    // --- UTILITIES ---
     public void showEmployeeGuide(View view) {
         showDialog("Employee Guide", "1. Arrive on time.\n2. Wash hands.\n3. Be professional.");
     }
