@@ -53,7 +53,7 @@ public class StaffMenuActivity extends AppCompatActivity {
             btnViewGuests.setVisibility(View.VISIBLE);
             btnDeleteGuest.setVisibility(View.VISIBLE);
         } else {
-            // STAFF ACCESS: View-Only Menu (Like Guest)
+            // STAFF ACCESS: View-Only Menu
             btnReadOnlyMenu.setVisibility(View.VISIBLE);
             btnAddEditMenu.setVisibility(View.GONE);
             btnViewComplaints.setVisibility(View.GONE);
@@ -70,6 +70,7 @@ public class StaffMenuActivity extends AppCompatActivity {
         updateNotificationBadge();
     }
 
+    // Refresh the badge based on current data in MenuData
     private void updateNotificationBadge() {
         int count = MenuData.notificationCount;
         if (count > 0) {
@@ -80,29 +81,31 @@ public class StaffMenuActivity extends AppCompatActivity {
         }
     }
 
+    // UPDATED: Now always shows the popup regardless of alert count
     public void handleNotificationClick(View view) {
-        if (MenuData.notificationCount > 0) {
-            AlertDialog.Builder b = new AlertDialog.Builder(this);
-            b.setTitle("New Alerts");
-            String[] opts = {"Guest Comments (" + MenuData.customerComplaints.size() + ")",
-                    "New Reservations (" + MenuData.reservationsList.size() + ")"};
-            b.setItems(opts, (d, w) -> {
-                if (w == 0) showComplaints(view);
-                else openReservationsPage(view);
-            });
-            b.show();
-        } else {
-            Toast.makeText(this, "No alerts", Toast.LENGTH_SHORT).show();
-        }
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("New Alerts");
+
+        // Show current counts for both categories
+        String[] opts = {
+                "Guest Comments (" + MenuData.customerComplaints.size() + ")",
+                "New Reservations (" + MenuData.reservationsList.size() + ")"
+        };
+
+        b.setItems(opts, (d, w) -> {
+            if (w == 0) showComplaints(view);
+            else openReservationsPage(view);
+        });
+
+        b.setNegativeButton("Close", null);
+        b.show();
     }
 
     public void openReadOnlyMenu(View view) {
-        // Directing to the guest's read-only view
         startActivity(new Intent(this, RestaurantMenuActivity.class));
     }
 
     public void openAddEditMenu(View view) {
-        // Directing to the admin's management view
         startActivity(new Intent(this, MenuItemsListActivity.class));
     }
 
@@ -110,16 +113,30 @@ public class StaffMenuActivity extends AppCompatActivity {
         startActivity(new Intent(this, ReservationsActivity.class));
     }
 
+    // UPDATED: Improved logic for displaying and clearing complaints
     public void showComplaints(View view) {
-        if (MenuData.customerComplaints.isEmpty()) return;
+        if (MenuData.customerComplaints.isEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Guest Comments")
+                    .setMessage("No complaints recorded.")
+                    .setPositiveButton("OK", null)
+                    .show();
+            return;
+        }
+
         StringBuilder sb = new StringBuilder();
         for (String c : MenuData.customerComplaints) sb.append("• ").append(c).append("\n\n");
-        new AlertDialog.Builder(this).setTitle("Guest Comments").setMessage(sb.toString())
-                .setPositiveButton("Close", (d, w) -> { MenuData.notificationCount = 0; updateNotificationBadge(); })
+
+        new AlertDialog.Builder(this)
+                .setTitle("Guest Comments")
+                .setMessage(sb.toString())
+                .setPositiveButton("Close", (d, w) -> updateNotificationBadge())
                 .setNeutralButton("Clear All", (d, w) -> {
                     MenuData.customerComplaints.clear();
-                    MenuData.notificationCount = 0;
+                    // Recalculate count to only include remaining reservations
+                    MenuData.notificationCount = MenuData.reservationsList.size();
                     updateNotificationBadge();
+                    Toast.makeText(this, "Comments Cleared", Toast.LENGTH_SHORT).show();
                 }).show();
     }
 
